@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{ message }}</h1>
+        <button @click="sayHello">Click me</button>
+        <button @click="changeText">Изменить текст</button>
+        <h2>Счетчик</h2>
+        <button @click="increase(2, $event)">increase</button>
+        <p>{{ counter }}</p>
+        <h2 @mousemove="mouseMove($event)">
+            Mouse move {{ x }} - {{ y }} 
+            <span @mousemove.stop>stop text</span>
+        </h2>
+        <p v-html="bigText"></p>
+        <h3 v-if="productAddCart">Добавить товар в корзину?</h3>
+        <h3 v-else="!productAddCart">Товар добавлен в корзину</h3>
+        <h3 v-show="productAddCart">Show</h3>
+        <button @click="productAddCart = !productAddCart">add product</button>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    message: 'Какой-то текст',
+                    counter: 0,  
+                    x: 0,
+                    y: 0,
+                    bigText: '<span>new text <a href="#">info</a></span>',
+                    productAddCart: true,
+                };
+            },
+            methods: {
+                    sayHello() {
+                       alert('Hello sayHello');
+                    },
+                    changeText() {
+                        this.message = 'Text click';
+                    },
+                    increase(step, event) {
+                        this.counter += step;
+                        console.log(event);
+                    },
+                    mouseMove(event) {
+                        this.x = event.clientX;
+                        this.y = event.clientY;
+                    }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
